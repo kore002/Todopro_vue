@@ -1,7 +1,7 @@
 <script>
 
 import ToDoMethod from "../api/ToDoMethod";
-import {reactive} from "vue";
+import {onUpdated, reactive} from "vue";
 
 export default{
     setup(){
@@ -40,7 +40,7 @@ export default{
         }
         const TodoDel = async(ID) => {
             await ToDoMethod.TODO_DEL(ID);
-            TodoGetList();
+            s
         }
         const TodoCheck = async(ID, CHECK) => {
             await ToDoMethod.TODO_CHECK(ID, CHECK);
@@ -69,7 +69,6 @@ export default{
             
         }
         return{
-            // Title_state,
             state,
             
             UpDate_Title,
@@ -85,8 +84,10 @@ export default{
     },
     created() {
         this.TodoGetList();
-    }
-
+    },
+    // updated() {
+    //     this.TodoGetList();
+    // }
 }
 
 
