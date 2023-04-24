@@ -5,10 +5,11 @@ const DEL_URL = import.meta.env.VITE_SOME_TODO_DEL_URL;
 const CHECK_URL = import.meta.env.VITE_SOME_TODO_CHECK_URL;
 const PUT_URL = import.meta.env.VITE_SOME_TODO_PUT_URL;
 
-const TODO_POST = async(title) => {
+const TODO_POST = async(title, enddate) => {
     try {
         const response = await Instance.post(POST_URL,{
-            todotitle: title
+            todotitle: title,
+            todoenddate: enddate
         });
         console.log(response.data);
     } catch (error) {

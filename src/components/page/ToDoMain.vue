@@ -40,7 +40,6 @@ export default{
         }
         const TodoDel = async(ID) => {
             await ToDoMethod.TODO_DEL(ID);
-            s
         }
         const TodoCheck = async(ID, CHECK) => {
             await ToDoMethod.TODO_CHECK(ID, CHECK);
@@ -98,7 +97,9 @@ export default{
     <div class="item">
       <h1>TODO</h1>
 
-      <input v-bind:value="state.title" v-on:input="UpDate_Title($event)"/>
+      <input v-bind:value="state.title" v-on:input="UpDate_Title($event)"
+      class="border-solid border-2 border-indigo-600"
+      />
       <button @click="TodoPost()">post</button>
 
 
@@ -113,6 +114,7 @@ export default{
                 <p v-if="state.putTODOList.prevPosX === index">
                     <input type="text"
                             v-model="state.putTODOList.edittitle"
+                            class="border-solid border-2 border-indigo-600"
                             />
                     <button @click="TodoPUT(state.putTODOList.todoitem.todoid,state.putTODOList.edittitle)">put</button>
                     <button @click="TodoPUT_Open_Close()">X</button>
@@ -120,9 +122,17 @@ export default{
      
               
             <span v-if="state.putTODOList.prevPosX !== index" >
-            <input type="checkbox" v-if="item.todocheck == 'N'"
-            @change="TodoCheck(item.todoid, item.todocheck)">
-            <input type="checkbox" v-if="item.todocheck == 'Y'" @change="TodoCheck(item.todoid, item.todocheck)" checked>
+            <input 
+                type="checkbox" 
+                v-if="item.todocheck == 'N'" 
+                @change="TodoCheck(item.todoid, item.todocheck)" 
+                class="border-solid border-2 border-indigo-600">
+            <input 
+                type="checkbox" 
+                v-if="item.todocheck == 'Y'" 
+                @change="TodoCheck(item.todoid, item.todocheck)" 
+                checked 
+                class="border-solid border-2 border-indigo-600">
             <button @click="TodoDel(item.todoid)">del</button>
 
             <button class="btn-edit" @click="TodoPUT_Open_Close(index, item)">Edit</button>

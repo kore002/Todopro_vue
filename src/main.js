@@ -19,8 +19,11 @@ import axios from "axios";
 import App from './App.vue';
 import router from './router/index.js';
 import './index.css'
+import 'v-calendar/style.css';
+import VCalendar from 'v-calendar';
 const app = createApp(App);
 app.use(router);
+app.use(VCalendar, {})
 app.config.globalProperties.$axios = axios; 
 app.mount('#app');
 
