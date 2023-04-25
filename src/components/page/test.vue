@@ -1,52 +1,32 @@
+<template>
+  <div class="ml-10 mt-10">
+    <h1>Watchers</h1>
+    <h2>current money :: {{ state.money }}</h2>
+    <Test_Ch
+      :count = state.money @input="state.money = $event"
+      />
+    <div>
+      <button @click="state.money += 100" class="bg-stone-200 mr-8">earn money</button>
+      <button @click="state.money -= 100" class="bg-stone-200 mr-8">spend money</button>
 
+    </div>
+  </div>
+</template>
 <script>
-export default {
-  data() {
-    return {
-      firstName: 'John',
-      lastName: 'Doe'
-    }
+import {onUpdated, reactive} from "vue";
+import Test_Ch from "./test_ch.vue";
+
+export default{
+  components: {
+    Test_Ch
   },
-  methods: {
-    updateInput: function(event, num) {
-      var updatedText = event.target.value;
-      if(num == 1 ){
-        this.firstName = updatedText;
-      }else if(num == 2 ){
-        this.lastName = updatedText;
-      };
-      
-  },
-  change: function() {
-    const  Value = [this.firstName, this.lastName];
-    console.log(Value)
-    //set(Value);
-  }
-},
-  computed: {
-    fullName: {
-      // getter
-      get() {
-        return this.firstName + ' ' + this.lastName
-      },
-      // setter
-      set(newValue) { 
-        // 참고: 분해 할당 문법을 사용함.
-        [this.firstName, this.lastName] = newValue.split(' ')
-      }
+  setup() {
+    const state = reactive({
+          money: 0,
+    })
+    return{
+      state
     }
   }
 }
 </script>
-
-<template>
-    <p>{{ fullName }}</p>
-    <span>firstName : </span>
-    <input v-bind:value="firstName" v-on:input="updateInput($event, 1)"/>
-    <p></p>
-    <span>lastName : </span>
-    <input v-bind:value="lastName" v-on:input="updateInput($event, 2)"/>
-    <p></p>
-    <button @click="change">change</button>
-    
-</template>

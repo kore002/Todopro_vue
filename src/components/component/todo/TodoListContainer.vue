@@ -4,12 +4,14 @@ import { reactive,  ref, readonly, provide } from 'vue';
 import TodoListItem from './TodoListItem.vue';
 import TodoListNew from './TodoListNew.vue';
 import ToDoMethod from '../../api/ToDoMethod';
+import TodoListMenu from './TodoListMenu.vue';
 
 export default {
     name: 'TodoListContainer',
     components: {
         TodoListItem,
-        TodoListNew
+        TodoListNew,
+        TodoListMenu
     },
     setup(){
         const state = reactive({
@@ -21,9 +23,7 @@ export default {
                 edit: false,
                 todoitem: {},
             },
-            onUpdate: false,
-            listupdate: false,
-
+            
         })
         const todos = ref([]);
         // provide('todos', readonly(todos))
@@ -37,25 +37,20 @@ export default {
                 });
         }
         const qwer = () =>{
-            console.log("qwer")
+            // state.listupdate = ! state.listupdate;
         }
         return{
             todos,
             state,
             TodoGetList,
-            qwer
+            qwer,
         }
     },
     created() {
         this.TodoGetList();
     },
     watch: {
-        // onUpdate(newOnUpdate){
-        //     this.TodoGetList()
-        // }
-        onUpdate(newlistupdate){
-            this.TodoGetList()
-        }
+        
     },
 }
 
@@ -67,22 +62,21 @@ export default {
         <div class="w-1/2 mt-10">
             <h2 class="flex place-content-center mb-10">==TODO==</h2>
             <TodoListNew 
-                :listupdate = state.listupdate
+                @TodoGetList = TodoGetList
             />
-
+            <TodoListMenu   />
             <br/>
             <ul>
                 <li v-for="(item, index) in state.setTODOList">
                     <TodoListItem 
                         :todo = item
                         :no = index
+                        @TodoGetList = TodoGetList
                     />
                 </li>
             </ul>
             <h2 class="flex place-content-center mt-10">=======</h2>
         </div>
-
-   
     </div>
 
 </template>

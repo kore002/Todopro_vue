@@ -6,18 +6,12 @@ import ToDoMethod from '../../api/ToDoMethod';
 
 export default {
   name: 'TodoListNew',
-  props:{
-    listupdate: {
-        type: Boolean,
-    }
-  },
-  setup(props) {
+  setup(props, context) {
     const state = reactive({
             title : "",
             enddate : ""
         })
     const date = ref(new Date());
-    const qwer = 0;
     const popover = ref({
       visibility: 'click',
       placement: 'right',
@@ -27,18 +21,19 @@ export default {
             state.title = updatedText;
         }
     const TodoPost = async() => {
-          asdf();
-          console.log(state.title)
-          console.log(state.enddate)
-          if(state.title == "" || state.title == null){
-              alert("빈값오류");
-          }else{
-              await ToDoMethod.TODO_POST(state.title, state.enddate);
-              props.listupdate = !props.listupdate
-          }
+        datefomet();
+        console.log(state.title)
+        console.log(state.enddate)
+        if(state.title == "" || state.title == null){
+            alert("빈값오류");
+        }else{
+            await ToDoMethod.TODO_POST(state.title, state.enddate);
+            // props.listupdate = !props.listupdate
         }
+        context.emit("TodoGetList");
+    }
 
-    const asdf = () => {
+    const datefomet = () => {
        var js_date = new Date(date._value);
 
         // 연도, 월, 일 추출
@@ -62,11 +57,14 @@ export default {
       state,
       date,
       popover,
-      asdf,
+      datefomet,
       UpDate_Title,
       TodoPost
     }
   },
+  emits:[
+    'TodoGetList'
+  ],
   components: {
     CalendarSVG,
   },

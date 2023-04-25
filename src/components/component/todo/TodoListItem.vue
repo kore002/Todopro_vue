@@ -1,16 +1,16 @@
 <script>
-import { async } from 'q';
 import ItemButton from '../../assets/button.vue';
 import ToDoMethod from  "../../api/ToDoMethod";
+import Datefomet from "../../assets/method/datefomet";
 export default {
+  name: 'TodoListItem',
   components: {
     ItemButton,
   },
   
   props:{
     todo: {
-        type: Object,
-        
+        type: Object,   
     },
     no: {
         type: Number,
@@ -19,7 +19,7 @@ export default {
         type: Boolean,
     },
   },
-  setup(props){
+  setup(props, context){
     const edit = () =>{
         console.log('###');
     }
@@ -27,15 +27,16 @@ export default {
       const todoid = props.todo.todoid
       console.log(props.todo);
       await ToDoMethod.TODO_DEL(todoid);
-      
+      context.emit("TodoGetList");
     }
-    
     return{
         edit,
         del
     }
   },
-  
+  emits:[
+    'TodoGetList'
+  ] 
 }
 
 </script>
@@ -43,7 +44,7 @@ export default {
     <div className="flex flex-row">
 
     <span className="basis-1/2">{{no+1}} - {{ todo.todotitle }}</span>
-    
+    <span class="mr-5">{{ todo.todoed }}</span>
     <ItemButton 
         text = "edit"
         :OnClick = edit
