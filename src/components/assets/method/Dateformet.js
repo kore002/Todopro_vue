@@ -1,5 +1,7 @@
-const datefomet = (date, type) => {
-    var js_date = new Date(date);
+const dateViewformet = (date) => {
+  var js_date = new Date(date);
+
+  
 
      // 연도, 월, 일 추출
      var year = js_date.getFullYear();
@@ -14,23 +16,23 @@ const datefomet = (date, type) => {
      if(day < 10){
        day = '0' + day;
      }
-
+     return  year + '-' + month + '-' + day;
      // 최종 포맷 (ex - '2021-10-08')
-     if(type =="v"){
-        return  year + '-' + month + '-' + day;
-     }else{
-        return  year + month + day;
-     }
-}
-
-const datelinefomet = (date) => {
-    const list = date.spilt('-');
-    var result;
      
 }
 
-const Datefomet = {
-    datefomet
+const dateCalfomet = (date) => {
+    const list = date.split("-");
+    var result = '';
+    list.forEach(element => {
+        result += element;
+    });
+    return result;
 }
 
-export default Datefomet;
+const Dateformet = {
+  dateViewformet,
+  dateCalfomet
+}
+
+export default Dateformet;

@@ -1,7 +1,7 @@
 <script>
 import ItemButton from '../../assets/button.vue';
 import ToDoMethod from  "../../api/ToDoMethod";
-import Datefomet from "../../assets/method/datefomet";
+import Dateformet from "../../assets/method/Dateformet";
 export default {
   name: 'TodoListItem',
   components: {
@@ -29,9 +29,27 @@ export default {
       await ToDoMethod.TODO_DEL(todoid);
       context.emit("TodoGetList");
     }
+    const dateCal = () => {
+      const Today = Dateformet.dateCalfomet(Dateformet.dateViewformet(new Date())); 
+      const Dday = Dateformet.dateCalfomet(props.todo.todoed);
+     
+      if(Today > Dday){
+        console.log("TODAY _ " + Today);
+        console.log("D-DAY _ " + Dday);
+        
+        return false;
+      }else {
+        console.log("TODAY _ " + Today);
+        console.log("D-DAY _ " + Dday);
+        
+        return true;
+      }
+      //return false
+    }
     return{
         edit,
-        del
+        del,
+        dateCal
     }
   },
   emits:[
@@ -44,7 +62,7 @@ export default {
     <div className="flex flex-row">
 
     <span className="basis-1/2">{{no+1}} - {{ todo.todotitle }}</span>
-    <span class="mr-5">{{ todo.todoed }}</span>
+    <span :class="dateCal() ? 'text-stone-950' : 'text-red-500'" class="mr-5">{{ todo.todoed }}</span>
     <ItemButton 
         text = "edit"
         :OnClick = edit
