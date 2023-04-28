@@ -22,7 +22,7 @@ const dateViewformet = (date) => {
 }
 
 const dateCalfomet = (date) => {
-    const list = date.split("-");
+    const list = (date||'').split("-");
     var result = '';
     list.forEach(element => {
         result += element;

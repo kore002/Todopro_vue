@@ -34,13 +34,13 @@ export default {
       const Dday = Dateformet.dateCalfomet(props.todo.todoed);
      
       if(Today > Dday){
-        console.log("TODAY _ " + Today);
-        console.log("D-DAY _ " + Dday);
+        // console.log("TODAY _ " + Today);
+        // console.log("D-DAY _ " + Dday);
         
         return false;
       }else {
-        console.log("TODAY _ " + Today);
-        console.log("D-DAY _ " + Dday);
+        // console.log("TODAY _ " + Today);
+        // console.log("D-DAY _ " + Dday);
         
         return true;
       }

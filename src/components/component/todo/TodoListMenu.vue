@@ -3,7 +3,7 @@
 import {ref, watch, reactive} from 'vue';
 export default {
   name: 'TodoListMenu',
-  setup(){
+  setup(props, context){
     const state =reactive({
         perPageList: [
         {
@@ -28,8 +28,10 @@ export default {
 
     const asdfqwer = (e) => {
         
-        console.log(e.target.key);
-   
+        console.log(e.target.value);
+        context.emit("qwer", {
+          id: e.target.value
+        });
     }
     watch(() => state.perPage, (newValue, oldValue) => {
       console.log('state.perPage 의 변이가 감지되었을 때 ', {newValue, oldValue})
@@ -39,6 +41,9 @@ export default {
         ,asdfqwer
     }
   },
+  emits:[
+    'qwer'
+  ] 
 //   watch: {
 //     asdf : function(){
 //         console.log("Asdf")

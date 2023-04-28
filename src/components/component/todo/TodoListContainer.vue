@@ -5,7 +5,7 @@ import TodoListItem from './TodoListItem.vue';
 import TodoListNew from './TodoListNew.vue';
 import ToDoMethod from '../../api/ToDoMethod';
 import TodoListMenu from './TodoListMenu.vue';
-
+import Dateformet from '../../assets/method/Dateformet';
 export default {
     name: 'TodoListContainer',
     components: {
@@ -36,7 +36,34 @@ export default {
                     state.setTODOList = data;
                 });
         }
-        const qwer = () =>{
+        const qwer = (param) =>{
+            const Today = Dateformet.dateCalfomet(Dateformet.dateViewformet(new Date()));
+            var list = [];
+            
+            console.log(param);
+            
+            if(param.id == 1){
+                TodoGetList();
+            }else{
+                ToDoMethod.TODO_GET().then(
+                    data => {
+                        data.forEach(element => {
+                            const Dday = Dateformet.dateCalfomet(element.todoed);
+                            if(param.id == 2){
+                                if(Today>Dday){
+                                    list.push(element);
+                                }
+                            }else{
+                                if(Today<=Dday){
+                                    list.push(element);
+                                }
+                            }
+                        });  
+                        todos.value = list;
+                        state.setTODOList = list;
+
+                    })
+                }
             // state.listupdate = ! state.listupdate;
         }
         return{
@@ -63,8 +90,11 @@ export default {
             <h2 class="flex place-content-center mb-10">==TODO==</h2>
             <TodoListNew 
                 @TodoGetList = TodoGetList
+           
             />
-            <TodoListMenu   />
+            <TodoListMenu  
+                @qwer = qwer
+             />
             <br/>
             <ul>
                 <li v-for="(item, index) in state.setTODOList">
